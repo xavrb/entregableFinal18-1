@@ -3,14 +3,51 @@
  
 using namespace std;
 // Funciones prototipos
-void menu();
+void menu(void);
 void checador(int); //prototipo de funcion de checador 
-void ganancias(int);
 
+void ULAM (void);//prototipo de funcion ULAM
+void SERIE(void);//prototipo de funcion de SERIE
+void CALCULO_SUELDO(string,float, float);//prototipo de funcion SUELDO
+int SUMA(int,int,int,int);
+bool HORARIO_VERANO(short d, short m);
+void TRABAJADORES(void);
 
 
 //clases
 
+class empresa{
+	private: 
+		
+	 
+
+	public:string name;
+		float ganancias;
+		empresa(){// constructor
+			string name="";
+			ganancias=0.0;
+		}
+		~empresa(){} // destructor
+		void printName();
+		void setName(string);
+ 
+		
+
+};
+
+class sat {
+	private:
+		string name;
+		
+
+	public: 
+		
+		sat(){
+			name= "SAT";
+		}
+		~sat(){}
+		void ganancias(empresa, empresa, int);
+};
 
 
 //...
@@ -26,35 +63,82 @@ char opc = '\0';
 			case 'u':
 			case 'U':
 				cout << "\nOpción seleccionada: ULAM \n";
+				ULAM();
 				break;
 
 			case 's':
 			case 'S':
 				cout << "\nOpción seleccionada: Serie \n";
+				SERIE();
 				break;
 			
 			case 'c':
-			case 'C':
-				cout << "\nOpción seleccionada: Cálculo del sueldo \n";
+			case 'C':{
+			
+					cout << "\nOpción seleccionada: Cálculo del sueldo \n";
+					string nombre;
+				   	float sdo_bruto  = 0.0;
+				   	float descuentos = 0.0;
+				   	bool jesus = true; // true = 1 , false =  0
+				   	cout << "\nDar el nombre del empleado :";
+				   	cin >> nombre;
+				   	
+				   	do
+				   	{
+					   	cout << "\nDar el Sueldo del empleado :";
+					   	cin >> sdo_bruto;
+						cout << "\nDar el descuento del empleado :";
+					   	cin >> descuentos;
+				  	 } while ( (sdo_bruto < 0.0) || (descuentos < 0) || (descuentos > sdo_bruto) );
+					   
+					   //SERGUNDO PADSO INVOCAR A LA FUNCION
+					   CALCULO_SUELDO(nombre,sdo_bruto,descuentos);
+				}
 				break;
 			case 'h':
-			case 'H':
+			case 'H':{
 				cout << "\nOpción seleccionada: Horarios \n";
+				short dia = 0 , mes = 0 ; 
+			   	bool resultado = false;
+			   	do
+			   	{
+				   	cout << "\nDar el dia :";
+				   	cin >> dia;
+					cout << "\nDar el mes :";
+				   	cin >> mes;
+			   } while ( (dia < 1 || dia > 31) || (mes < 1 || mes > 12 ) );
+				   
+				   //SERGUNDO PADSO INVOCAR A LA FUNCION.
+				   
+				resultado = HORARIO_VERANO(dia,mes);
+				  cout << "xxxxxxxxxxxxxxxxx" << resultado;
+				if (resultado == true)
+				   {  
+			         cout << " \n\n SE HA TERMINADO EL HORARIO DE VERANO !!!!!";		
+				   }
+				else
+				   {
+				   	cout << " \n\n AUN SEGUIMOS CON EL HORARIO ANTERIOR, LASTIMA !!!!!";
+				   }
+				}
 				break;
 			case 'e':
 			case 'E':
 				cout << "\nOpción seleccionada: Empleados \n";
+				TRABAJADORES();
 				break;
 			case 'g':
-			case 'G':
+			case 'G':{
 				int anios;
-				cout << "\nOpción seleccionada: Empresa Ganancias \n";
-				cout << "\nIngrese anios para el calculo: \t";
+				empresa japon;
+				japon.setName("Japon");
+				empresa mexico;
+				mexico.setName("Mexico");
+				sat satmex;
+				cout << "\nIngrese el número de años para calcular:\t";
 				cin >> anios;
-				cout << "Calculando las ganancias con " << anios << "\n";
-				ganancias(anios);
-				cout << "\nIngrese opción para continuar:\n";
-				
+				satmex.ganancias(japon, mexico, anios);
+				}
 				break;
 			case 'm':
 			case 'M':
@@ -134,20 +218,203 @@ void checador(int noEmpleados){
 	cout << "Minutos Extra Globales" << minExtraGlobales;
 }
 
-void ganancias(int n){
+
+
+
+void ULAM()
+{
+  system ("cls");
+ system ("color 0b");	
+  cout << "\n PROBLEMA : ULAM (A un numero dado mayor a 0 ";
+  cout << "\n cada elemento de la serie se va obteniendo de la siguiente forma : ";
+  cout << "\n si es par dividirlo entre dos y si es impar multiplicarlo por tres y sumarle 1; y terminará al llegar a 1 .";
+  cout << "\n ejemplo: la serie de ULAM del número 5 es: 5, 16,8,4,2,1 .";
+  int intNumero = 0 ; 
+ 
+  do
+ { 
+    cout << "\n\n\n\n\n\nFavor de proporcionar un Numero Positivo : ";
+    cin >> intNumero;
+ 	
+ } while (intNumero < 1);
+
+ cout << intNumero << ","; 
+ while ( intNumero > 1)
+ {
+ 	
+ 	if (intNumero % 2 == 0)
+ 	   {
+ 	     intNumero /= 2 ;	
+ 	   	
+	   }
+	else
+	    {
+		  intNumero = intNumero * 3 + 1;
+		}	
+ 	
+ 	cout << intNumero << ",";
+ }
+
+ return ; 	
+}
+  
+  
+  
+  
+  
+void SERIE()
+{
+ system ("cls");
+ system ("color 0a");	
+ cout << "\n PROBLEMA : Realizar una funcion para mostrar la serie (asi como se observa) :";
+ cout << "\n\n\n 1/1  +  9/3  +  25/5  + 49/7  +  81/9  +  121/11  +  169/13.";
+ cout << "\n\n\n\n\n\n Se inicia la serie en  : \n";
+ 
+ 
+ 
+ 
+ int Alfa = 8000 ;
+ 
+ cout << endl << endl << endl << endl << endl;
+ 
+ for( Alfa = 1 ; Alfa <= 13 ; Alfa+=2)
+   {
+ 
+    	cout << (Alfa * Alfa) << "/" << Alfa ;
+    	if (Alfa < 13)
+    	{
+		   cout <<" + ";
+		}
+    	else
+    	{
+    		cout <<".";
+		}
+    }	
+  
+  cout << "\n\n";	
+ return;	
+}
+
+
+
+
+
+void CALCULO_SUELDO(string nombre, float sdo_bruto, float descuentos)
+{
+	system ("cls");
+//system ("color 6a");
+	float SUELDO_NETO =0;
+	SUELDO_NETO = sdo_bruto - descuentos;
+	
+	cout << "\n EL Empleado : " << nombre;
+	cout << "\n Tiene un Sueldo Bruto: $ " << sdo_bruto;
+	cout << "\n y Descuentos de $ : " << descuentos;
+	cout << "\n --------------------";
+	cout << "\n SUELDO NETO $ " << SUELDO_NETO;
+	cout << endl;
+	system("cls");
+	cout << "\n\n\n Voy a llamar a otra funcion de SUMA con valores constantes: ";
+	cout << SUMA(10,500,100,1000);
+	
+	return ;
+}
+
+// FUNCION SUMA
+
+ int SUMA(int n1, int n2, int n3, int n4)
+ {
+ 	int SUMITA = 0 ; 
+ 	SUMITA = n1 + n2 + n3 + n4; 
+ 	return (  SUMITA )       ;
+ 	
+ 	
+ }
+ 
+ 
+ //FUNCION HORARIO VERANO 
+ 
+ 
+  bool HORARIO_VERANO(short dia, short mes)
+ {
+ 	if ( dia > 29 && mes > 10 ) 
+	 {
+	 	 	return (true ) ;
+	  }
+	  else
+	  {
+	  	 	return (false) ;
+	   } 
+ 	
+ 	
+ }
+ 
+ 
+ 
+ void TRABAJADORES()
+{
+  float turno_cumplido_8_horas = 0 ; 
+  float total_empleados = 0 ;
+  short minutos_extras = 0 ;
+  short minutos_entrada  = 0, minutos_salida = 0 ;
+  float porciento = 0.0 ;
+  float MINUTOS = 0; 
+  
+  do	
+     {
+     	cout << "\nFavor de capturar los minutos de entrada (terminar con un 0)  :";
+     	cin >> minutos_entrada;
+     	cout << "\nFavor de capturar los minutos de salida (terminar con un 0)  :";
+     	cin >> minutos_salida;
+     	MINUTOS = minutos_salida - minutos_entrada;
+     	if (MINUTOS > (60 * 8))
+           {
+           	 minutos_extras = minutos_extras + (MINUTOS - (60 * 8));
+	         turno_cumplido_8_horas ++;
+	       
+	  	   }     	
+     	total_empleados++;
+	 }	while(minutos_entrada != 0 || minutos_salida != 0);
+	
+	total_empleados--;
+
+    //MOSTRAR LOS RESULTADOS
+    cout << "\n\n\n\n total de empleados :" << total_empleados;
+     cout << "\n total de turnos cumplidos :" << turno_cumplido_8_horas;
+    
+    porciento = (turno_cumplido_8_horas / total_empleados) * 100 ; 
+    cout << "\n\n el " << porciento << " % cumpleieron con su turno de 8 horas." ; 
+    cout << "\nse han hecho un total de " << minutos_extras << " minutos extras";
+return ; 
+}
+
+
+// CLASES
+
+void sat::ganancias(empresa a,empresa b, int n){
 	int x,acp1=0, acp2=0;
-	float gananciasp1,gananciasp2;
+ 
 	for(x=0; x<n;x++){
-		cout << "Ingrese ganancias de pais 1 del anio " << x+1 << "\t";
-		cin >> gananciasp1;
-		cout << "Ingrese ganancias de pais 2 del anio " << x+1 << "\t";
-		cin >> gananciasp2; 
-		if(gananciasp1>gananciasp2) acp1++;
+		cout << "Ingrese ganancias de "<< a.name <<" del anio " << x+1 << "\t";
+		cin >> a.ganancias;
+		cout << "Ingrese ganancias de "<< b.name <<" del anio " << x+1 << "\t";
+		cin >> b.ganancias; 
+		if(a.ganancias>b.ganancias) acp1++;
 		else acp2++;
 	}
-	if (gananciasp1>gananciasp2) cout << "El pais 1 gano mas\n";
-	else if( gananciasp1 == gananciasp2) cout << "\n\nRESULTADO===============\n   Los paises empataron\n";
-	else cout << "El pais 2 gano";
+	if (a.ganancias>b.ganancias) cout <<"\n\nRESULTADO===============\n"<< a.name <<" gano mas\n";
+	else if( a.ganancias == b.ganancias) cout << "\n\nRESULTADO===============\n   Los paises empataron\n";
+	else cout <<"\n\nRESULTADO===============\n"<< b.name << " gano";
+
+}
+
+
+
+void empresa::printName(){
+	cout << name;
+}
+
+void empresa::setName(string n){
+	name=n;
 
 }
 
