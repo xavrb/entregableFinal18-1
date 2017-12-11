@@ -32,11 +32,8 @@ class barrio{
 		~barrio(){}
 		void setNBName(string);
 		void setNoHab(int);
-		int searchByName(char *);
-		int searchBylNameFather(char *);
-		int searchBylNameMother(char *);
-		int searchByAgeRange(int, int);
- 
+
+
 
 };
 
@@ -57,6 +54,10 @@ class habitante: public barrio{
 	      void printInfo(int);
 	      void search(int);
 		int end();
+		int searchByName(char *);
+		int searchBylNameFather(char *);
+		int searchBylNameMother(char *);
+		int searchByAgeRange(int, int);
 	      
 };
 
@@ -225,8 +226,70 @@ char opc = '\0';
 					hab++;
 
 				}
+				// buscar 
+				int menuSearch = -1;
+				cout << "\nModo búsqueda activado.\n Ingrese opción: \n 0.- Consulta por Nombre\n1.- Consulta por Primer Apellido.\n2.- Consulta por segundo Apellido.\n3.- Consulta por intervalo de edad.\n4.- Regresar al menú principal.\n Opcion? >>\t";
+				do{
+					cin >> menuSearch;
+					switch(menuSearch){
+						case 0:
+							{
+							cout << "\nConsulta por Nombre\n";
+							char auxToSearchByName[leng];
+							cin >>  auxToSearchByName;
+							for(int x=0; x<h;x++){
+								if(habitantes[x].searchByName(auxToSearchByName)){ habitantes[x].printInfo(x);}
+								
+							}
+						}
+						break; 
+						case 1:
+							{
+							cout << "\nConsulta por apellido paterno\n";
+							char auxToSearchBylpName[leng];
+							cin >>  auxToSearchBylpName;
+							for(int x=0; x<h;x++){
+								if(habitantes[x].searchBylNameFather(auxToSearchBylpName)){ habitantes[x].printInfo(x);}
+								
+							}
+						}
+						break;
+						case 2:
+							{
+							cout << "\nConsulta por apellido materno\n";
+							char auxToSearchBylmName[leng];
+							cin >>  auxToSearchBylmName;
+							for(int x=0; x<h;x++){
+								if(habitantes[x].searchBylNameMother(auxToSearchBylmName)){ habitantes[x].printInfo(x);}
+								
+							}
+						}
+						break;
+						case 3:
+							{
+							int a=0,b=0;
+							cout << "\nConsulta por rango de edad\n";
+							cout << "Ingrese rango de edad:\t";
+							cin >>a >>b;
+							for(int x=0; x<h;x++){
+								if(habitantes[x].searchByAgeRange(a,b)){ habitantes[x].printInfo(x);}
+								
+							}
+						}
+						break;
+						case 4:
+							{
+							cout << "\nRegresando al menu principal.\n";
+							break;break;}
+						
+						break;
+					default:
+					cout << "OPCION INCORRECTA! ingrese opcion valida\n";
+					break;
+					}
 
-
+				//	cout << "\nModo búsqueda activado.\n Ingrese opción: \n 0.- Consulta por Nombre\n1.- Consulta por Primer Apellido.\n2.- Consulta por segundo Apellido.\n3.- Consulta por intervalo de edad.\n4.- Regresar al menú principal.\n Opcion? >>\t";
+				}while(menuSearch!=0||menuSearch!=1||menuSearch!=2||menuSearch!=3||menuSearch!=4);
 				}break;
 			case 'q':
 			case 'Q':
@@ -550,5 +613,32 @@ int habitante::end(){
 	if(!strcmp(name,"X") && !strcmp(lnameFather, "X") && !strcmp(lnameMother, "X") && edad==-1){ cout <<"CENTINELA!";return 1;}
 	else{ return 0;}
 }
+int habitante::searchByName(char * auxToSearchByName){
+	if(!strcmp(auxToSearchByName,name)){
+		cout << "Coincidencia encontrada!\n";
+		return 1;	
+	}else{return 0;}
+}
 
+int habitante::searchBylNameFather(char * auxToSearchBylpName){
+	if(!strcmp(auxToSearchBylpName,lnameFather)){
+		cout << "Coincidencia encontrada!\n";
+		return 1;	
+	}else{return 0;}
+}
+
+int habitante::searchBylNameMother(char * auxToSearchBylmName){
+	if(!strcmp(auxToSearchBylmName,lnameMother)){
+		cout << "Coincidencia encontrada!\n";
+		return 1;	
+	}else{return 0;}
+}
+
+int habitante::searchByAgeRange(int a, int b){
+	if(edad <= b && edad >=a){
+		cout << "Coincidencia encontrada!\n";
+		return 1;	
+	}else{return 0;}
+
+}
 
