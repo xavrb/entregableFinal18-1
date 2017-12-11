@@ -280,15 +280,16 @@ char opc = '\0';
 						case 4:
 							{
 							cout << "\nRegresando al menu principal.\n";
-							break;break;}
+							menuSearch=4;
+							}
 						
 						break;
 					default:
 					cout << "OPCION INCORRECTA! ingrese opcion valida\n";
 					break;
 					}
-
-				//	cout << "\nModo búsqueda activado.\n Ingrese opción: \n 0.- Consulta por Nombre\n1.- Consulta por Primer Apellido.\n2.- Consulta por segundo Apellido.\n3.- Consulta por intervalo de edad.\n4.- Regresar al menú principal.\n Opcion? >>\t";
+					if(menuSearch==4)break;
+					cout << "\nModo búsqueda activado.\n Ingrese opción: \n 0.- Consulta por Nombre\n1.- Consulta por Primer Apellido.\n2.- Consulta por segundo Apellido.\n3.- Consulta por intervalo de edad.\n4.- Regresar al menú principal.\n Opcion? >>\t";
 				}while(menuSearch!=0||menuSearch!=1||menuSearch!=2||menuSearch!=3||menuSearch!=4);
 				}break;
 			case 'q':
