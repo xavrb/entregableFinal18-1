@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string.h>
- 
+#define leng 50 // longitud para el problema 9
 using namespace std;
 // Funciones prototipos
 void menu(void);
@@ -15,6 +15,52 @@ void TRABAJADORES(void);
 
 
 //clases
+
+
+
+class barrio{
+
+	private: 
+		int noHabitantes;
+ 		
+	public:string nombreBarrio;
+	
+		barrio(){
+			nombreBarrio="";
+			noHabitantes= 0;
+		}
+		~barrio(){}
+		void setNBName(string);
+		void setNoHab(int);
+		int searchByName(char *);
+		int searchBylNameFather(char *);
+		int searchBylNameMother(char *);
+		int searchByAgeRange(int, int);
+ 
+
+};
+
+class habitante: public barrio{
+	private:
+		char name[leng], lnameFather[leng], lnameMother[leng];
+      		int edad, id;
+	  
+	  public:
+	      habitante(){
+		 edad=0;
+	      }
+	      ~habitante(){}
+		int setName();
+ 		int setlNameFather();		
+		int setlNameMother();
+		int setEdad();
+	      void printInfo(int);
+	      void search(int);
+		int end();
+	      
+};
+
+
 
 class empresa{
 	private: 
@@ -149,9 +195,39 @@ char opc = '\0';
 				cout << "\nOpción seleccionada: Estacionamiento \n";
 				break;
 			case 'b':
-			case 'B':
+			case 'B':{
+				int h;
 				cout << "\nOpción seleccionada: Habitantes de un barrio \n";
-				break;
+				cout << "\nCreando barrio\n";
+				barrio ecatepec;
+				ecatepec.setNBName("Ecatepec");
+				cout << "\nBarrio creado: " << ecatepec.nombreBarrio << "\n Ingrese numero de habitantes en "<< ecatepec.nombreBarrio << "\t";
+				cin >> h;
+				if(h>0){ ecatepec.setNoHab(h);
+					
+				}else{cout <<"No se pudo agregar habitantes al barrio.\n"; break;}
+				habitante* habitantes = new habitante[h];
+				int centinel = 0, hab=0;
+				cout << "\nAgregando residentes\n";
+				while(centinel != 1 && hab<h){
+
+					cout << "Ingrese nombre de residente "<< hab<< "\n";
+ 					habitantes[hab].setName();
+ 					habitantes[hab].setlNameFather();
+ 					habitantes[hab].setlNameMother();
+ 					habitantes[hab].setEdad();
+					if(habitantes[hab].end()){
+						cout<< "Se terminó la carga de datos";
+						centinel =1;
+					}else{
+					cout << "\nHabitante ingresado\n";
+					habitantes[hab].printInfo(hab);}
+					hab++;
+
+				}
+
+
+				}break;
 			case 'q':
 			case 'Q':
 				cout <<"\nSaliendo...\n";
@@ -417,4 +493,62 @@ void empresa::setName(string n){
 	name=n;
 
 }
+
+
+
+
+// BARRIO
+void  barrio::setNBName(string n){
+	nombreBarrio = n;
+
+}
+
+
+void barrio::setNoHab(int x){
+	noHabitantes = x;
+	cout << "Habitantes actuales en " << nombreBarrio<< ": \t"<< noHabitantes;
+
+}
+
+// habitante
+
+
+
+
+void habitante::printInfo(int id){
+	cout << "Datos de habitante "<< id<< ":";
+	cout << "\nNombre: "<< name;
+	cout << "\nApellido paterno: "<< lnameFather;
+	cout << "\nApellido materno: "<< lnameMother;
+	cout << "\nEdad: "<< edad<<"\n\n";
+}
+
+
+int habitante::setName(){
+	cout << "Ingrese nombre\t";
+	cin >> name;
+	return 0;
+}
+
+int habitante::setlNameFather(){
+	cout << "Ingrese Apellido paterno\t";
+	cin >> lnameFather;
+	return 0;
+}
+int habitante::setlNameMother(){
+	cout << "Ingrese Apellido materno\t";
+	cin >> lnameMother;
+	return 0;
+}
+int habitante::setEdad(){
+	cout << "Ingrese edad\t";
+	cin >> edad;
+	return 0;
+}
+
+int habitante::end(){
+	if(!strcmp(name,"X") && !strcmp(lnameFather, "X") && !strcmp(lnameMother, "X") && edad==-1){ cout <<"CENTINELA!";return 1;}
+	else{ return 0;}
+}
+
 
