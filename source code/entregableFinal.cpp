@@ -16,7 +16,25 @@ void TRABAJADORES(void);
 
 //clases
 
+class meteorologia{
 
+	private: 
+		float tempa, tempb;
+ 		
+	public:
+	
+		meteorologia(){
+			tempa =0.0;
+			tempb= 0.0;
+		}
+		~meteorologia(){}
+		void setTemps(float, float);
+		float checkGreat();
+		void isValid();
+
+
+
+};
 
 class barrio{
 
@@ -108,15 +126,15 @@ char opc = '\0';
 		cin >> opc;
 		switch(opc){
 			case 'u':
-			case 'U':
+			case 'U':{
 				cout << "\nOpción seleccionada: ULAM \n";
-				ULAM();
+				ULAM();}
 				break;
 
 			case 's':
-			case 'S':
+			case 'S':{
 				cout << "\nOpción seleccionada: Serie \n";
-				SERIE();
+				SERIE();}
 				break;
 			
 			case 'c':
@@ -170,9 +188,9 @@ char opc = '\0';
 				}
 				break;
 			case 'e':
-			case 'E':
+			case 'E':{
 				cout << "\nOpción seleccionada: Empleados \n";
-				TRABAJADORES();
+				TRABAJADORES();}
 				break;
 			case 'g':
 			case 'G':{
@@ -189,7 +207,15 @@ char opc = '\0';
 				break;
 			case 'm':
 			case 'M':
-				cout << "\nOpción seleccionada: Meteorología \n";
+				{	float a=0.0,b=0.0;
+					meteorologia canal4;
+					cout << "\nOpción seleccionada: Meteorología \nIngrese las temperaturas separadas por un espacio.\n";
+					cin >> a >>b;
+					canal4.setTemps(a,b);
+					cout << "\nLa temperatura mayor es " << canal4.checkGreat()<< "\n";
+					canal4.isValid();
+					
+				}
 				break;
 			case 'x':
 			case 'X':
@@ -643,3 +669,35 @@ int habitante::searchByAgeRange(int a, int b){
 
 }
 
+
+void meteorologia::setTemps(float a, float b){
+	tempa =a;
+	tempb =b;
+
+}
+
+float meteorologia::checkGreat(){
+	if(tempa>tempb){
+		return tempa;
+			
+	}else if(tempb>tempa){
+		return tempb;
+	}else{
+	cout << "\nNinguna, las temperaturas son iguales\n";
+	}
+ 
+
+}
+
+void meteorologia::isValid(){
+	if(tempa<-273.0){
+		cout << "\nTemperatura A es invalida";
+			
+	}
+	if(tempb<-273.0){
+		cout << "\nTemperatura B es invalida";
+	}
+if(tempb>-273.0&&tempa>-273){
+		cout << "\nTemperatura validas\n";
+	}
+}
